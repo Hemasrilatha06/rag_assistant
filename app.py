@@ -164,12 +164,9 @@ class Query(BaseModel):
 
 @app.post("/ask")
 def ask(query: Query):
-    answer = rag_chain.invoke(query.question)
     return {
-        "question": query.question,
-        "answer": answer
+        "answer": rag_chain.invoke({"question": query.question})
     }
-
 
 # ==========================================================
 # 12. LangServe Endpoint
