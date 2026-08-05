@@ -126,10 +126,12 @@ def format_docs(docs):
 # 8. Create RAG Chain
 # ==========================================================
 
+from operator import itemgetter
+
 rag_chain = (
     {
-        "context": retriever | format_docs,
-        "question": RunnablePassthrough()
+        "context": itemgetter("question") | retriever | format_docs,
+        "question": itemgetter("question"),
     }
     | prompt
     | llm
